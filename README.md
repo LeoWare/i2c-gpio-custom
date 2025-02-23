@@ -4,6 +4,12 @@ DKMS Module
 
 ## Setup
 
+Install environment
+
+```shell
+sudo apt install build-essential git linux-headers-$(uname -r)
+```
+
 Clone the repository
 
 ```shell
