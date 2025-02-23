@@ -50,7 +50,7 @@
 #include <linux/version.h>
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 15, 0)
 #include <linux/gpio/machine.h>
-#include <asm-generic/gpio.h>
+#include "gpio.h"
 #endif
 #if LINUX_VERSION_CODE < KERNEL_VERSION(4, 18, 0)
 #include <linux/i2c-gpio.h>
@@ -167,7 +167,7 @@ static int __init i2c_gpio_custom_add_one(unsigned int id, unsigned int *params)
 		err = -EINVAL;
 		goto err;
 	}
-	gpiod_table->table[0].chip_label = chip_sda->label;
+	gpiod_table->table[0].key = chip_sda->label;
 	gpiod_table->table[0].chip_hwnum = params[BUS_PARAM_SDA] - chip_sda->base;
 
 	chip_scl = gpio_to_chip(params[BUS_PARAM_SCL]);
@@ -176,7 +176,7 @@ static int __init i2c_gpio_custom_add_one(unsigned int id, unsigned int *params)
 		err = -EINVAL;
 		goto err;
 	}
-	gpiod_table->table[1].chip_label = chip_scl->label;
+	gpiod_table->table[1].key = chip_scl->label;
 	gpiod_table->table[1].chip_hwnum = params[BUS_PARAM_SCL] - chip_scl->base;
 
 	dev_id = kmalloc(BUS_NAME_MAX+1, GFP_KERNEL);
